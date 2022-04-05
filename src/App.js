@@ -1,10 +1,15 @@
+import client from "./config/apollo";
+import { ApolloProvider } from "@apollo/client";
+
 import './App.scss';
 
 function App() {
   return (
-    <div>
-      Hello world
-    </div>
+    <ApolloProvider client={client}>
+        <div>
+          Hello world
+        </div>
+    </ApolloProvider>
   );
 }
 
