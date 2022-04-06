@@ -1,0 +1,20 @@
+.form-input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border: 1px solid $bg-light-grey;
+    box-shadow: $shadow-light;
+    padding: .7rem 2rem;
+    border-radius: .4rem;
+    width: 100%;
+    transition: all .3s;
+    margin-bottom: 1.5rem;
+    &:focus {
+        outline: none;
+    }
+    &::-webkit-input-placeholder {
+        font-weight: 300;
+        font-size: 1.3rem;
+        color: $font-medium-grey;
+    }
+}

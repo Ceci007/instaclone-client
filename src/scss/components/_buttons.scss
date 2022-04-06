@@ -1,0 +1,20 @@
+.btn {
+    border: none;
+    width: 16rem;
+    padding: 1rem 3rem;
+    box-shadow: $shadow-dark;
+    transition: all .3s ease-in-out;
+}
+
+.btn-submit {
+    background: linear-gradient(to left top, $bg-primary, $bg-hover);
+    border-radius: .4rem;
+    text-transform: uppercase;
+    color: white;
+    width: 100%;
+}
+
+.btn:hover {
+    transform: translateY(2px);
+    box-shadow: $shadow-light;
+}
