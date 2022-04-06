@@ -22,4 +22,27 @@ body {
     font-weight: 400;
     line-height: 1.6;
     color: $dark-grey;
+    background-color: $bg-light;
 } 
+
+.container {
+    max-width: 80%;
+    width: 80%;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    @media only screen and (max-width: $bp-medium) {
+        max-width: 90%;
+        width: 90%;
+        padding: 3rem 1.5rem;
+    }
+
+    @media only screen and (max-width: $bp-smallest) {
+        max-width: 100%;
+        width: 100%;
+    }
+}
