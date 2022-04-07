@@ -4,7 +4,7 @@ import LazyImage from '../../components/LazyImage/LazyImage';
 import logo from "../../assets/png/instaclone.png";
 
 export default function Auth() {
-    const [showLogin, setShowLogin] = useState(true);
+    const [showLogin, setShowLogin] = useState(false);
 
     return (
         <div className="container">
