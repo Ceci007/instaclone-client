@@ -6,7 +6,8 @@ $bp-small: 37.5em;                     // 600px
 $bp-smallest: 31.25em;                 // 500px
 
 // background colors
-$tomato: tomato;
+$bg-danger: #ff5b5b;
+$bg-danger-dark: #a60000;
 $bg-light: #ededed;
 $bg-primary: #666cff;
 $bg-hover: #424aff;
@@ -17,6 +18,7 @@ $font-dark-grey: #333;
 $font-medium-grey: #666;
 $font-light-grey: #bdbcbc;
 $font-primary: #666cff;
+$font-danger: #a60000;
 
 // shadows 
 $shadow-dark: 0 2rem 6rem rgba(#333,.3);
