@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "../../gql/user";
 
@@ -45,12 +46,15 @@ export default function RegisterForm(props) {
                 const newUser = formData;
                 delete newUser.confirmPassword;
 
-                const result = await register({
-                    variables: {
+                await register({
+                    variables: { 
                         input: newUser,
                     }
                 });
+                toast.success("User register successfully!!");
+                setShowLogin(true);
             } catch(err) {
+                toast.error(err.message);
                 console.log(err.message);
             }
             setShow(true);
