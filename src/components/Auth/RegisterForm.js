@@ -1,9 +1,12 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
+import { REGISTER } from "../../gql/user";
 
 export default function RegisterForm(props) {
     const { setShowLogin } = props;
+    const [register] = useMutation(REGISTER);
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -37,9 +40,19 @@ export default function RegisterForm(props) {
               .required("Password is required")
               .oneOf([Yup.ref("password")], "Passwords don't match"),
           }),
-        onSubmit: (formValues) => {
-            console.log("sent form!!!");
-            console.log(formValues);
+        onSubmit: async (formData) => {
+            try {
+                const newUser = formData;
+                delete newUser.confirmPassword;
+
+                const result = await register({
+                    variables: {
+                        input: newUser,
+                    }
+                });
+            } catch(err) {
+                console.log(err.message);
+            }
             setShow(true);
         }
     });
