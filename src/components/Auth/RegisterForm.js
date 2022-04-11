@@ -55,7 +55,6 @@ export default function RegisterForm(props) {
                 setShowLogin(true);
             } catch(err) {
                 toast.error(err.message);
-                console.log(err.message);
             }
             setShow(true);
         }
@@ -67,7 +66,7 @@ export default function RegisterForm(props) {
             <form 
                 className="form" 
                 onSubmit={formik.handleSubmit}
-                style={{height: "370px"}}
+                style={{height: "450px"}}
             >
                 <div className="form-control">
                     <input 

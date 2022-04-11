@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import RegisterForm from '../../components/Auth/RegisterForm';
+import LoginForm from "../../components/Auth/LoginForm";
 import LazyImage from '../../components/LazyImage/LazyImage';
 import logo from "../../assets/png/instaclone.png";
 
 export default function Auth() {
-    const [showLogin, setShowLogin] = useState(false);
+    const [showLogin, setShowLogin] = useState(true);
 
     return (
         <div className="container">
@@ -12,7 +13,7 @@ export default function Auth() {
                 <LazyImage src={logo} alt="logo" width="100%" height="auto" />
             </div>
             <div className='form-container'>
-                { showLogin ? <div>login form</div> : <RegisterForm setShowLogin={setShowLogin} /> }
+                { showLogin ? <LoginForm setShowLogin={setShowLogin} /> : <RegisterForm setShowLogin={setShowLogin} /> }
                 { showLogin ? (
                     <div className="space-between">
                         <p>don't you have an account yet?</p>
