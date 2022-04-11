@@ -3,10 +3,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
+import { LOGIN } from '../../gql/user';
 
 export default function LoginForm(props) {
     const { setShowLogin } = props;
-    //const [register] = useMutation(REGISTER);
+    const [error, setError] = useState("");
+    const [login] = useMutation(LOGIN);
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -30,7 +32,18 @@ export default function LoginForm(props) {
               .required("Password is required"),
           }),
         onSubmit: async (formData) => {
-            console.log(formData);
+            setError("");
+            try {
+                const { data } = await login({
+                    variables: {
+                        input: formData,
+                    }
+                });
+                console.log(data);
+            } catch(err) {
+                setError(err.message);
+                console.log(err.message);
+            }
             setShow(true);
         }
     });
@@ -94,6 +107,21 @@ export default function LoginForm(props) {
                 <button type="submit" className="btn btn-submit">
                     Login
                 </button>
+                { error && 
+                 <div 
+                        className={error ? "error-field error-animated" : "error-field"}
+                        style={{height: error ? `${heightError}px` : "0px", width: "100%", marginTop: "20px"}}
+                        ref={refError}     
+                    >
+                
+                            <div className="svg-size">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#a60000" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <p aria-hidden={error ? "true" : "false"}>{error}</p>
+                    </div>
+                }
                 {/* <button type="button" onClick={formik.handleReset}>
                       Reset
                 </button>*/}
