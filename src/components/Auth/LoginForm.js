@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from '../../gql/user';
+import { setToken } from "../../utils/token";
 
 export default function LoginForm(props) {
     const { setShowLogin } = props;
@@ -39,10 +40,10 @@ export default function LoginForm(props) {
                         input: formData,
                     }
                 });
-                console.log(data);
+                const { token } = data.login;
+                setToken(token);
             } catch(err) {
                 setError(err.message);
-                console.log(err.message);
             }
             setShow(true);
         }
