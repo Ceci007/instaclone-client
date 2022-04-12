@@ -7,6 +7,8 @@ import Auth from "./pages/Auth/index";
 import { getToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
 
+import Home from "./pages/Home";
+
 import './App.scss';
 
 function App() {
@@ -42,7 +44,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-          { !auth ? <Auth /> : <div>Estas loggeado</div>}
+          { !auth ? <Auth /> : <Home /> }
           <ToastContainer 
             position="top-right"
             autoClose={5000}
