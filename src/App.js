@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import client from "./config/apollo";
 import { ApolloProvider } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 
 import Auth from "./pages/Auth/index";
 import { getToken } from "./utils/token";
+import AuthContext from './context/AuthContext';
 
 import './App.scss';
 
@@ -20,21 +21,40 @@ function App() {
       setAuth(token);
     }
   }, []);
+
+  const logout = () => {
+    console.log("Logged out");
+  }
+
+  const setUser = (user) => {
+    setAuth(user);
+  }
+
+  const authData = useMemo(
+    () => ({
+      auth, 
+      logout,
+      setUser
+    }), 
+    [auth]
+  );
  
   return (
     <ApolloProvider client={client}>
-        { !auth ? <Auth /> : <div>Estas loggeado</div>}
-        <ToastContainer 
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+      <AuthContext.Provider value={authData}>
+          { !auth ? <Auth /> : <div>Estas loggeado</div>}
+          <ToastContainer 
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+      </AuthContext.Provider>
     </ApolloProvider>
   );
 }

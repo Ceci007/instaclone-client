@@ -5,11 +5,14 @@ import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from '../../gql/user';
 import { setToken } from "../../utils/token";
+import useAuth from "../../hooks/useAuth";
 
 export default function LoginForm(props) {
     const { setShowLogin } = props;
     const [error, setError] = useState("");
     const [login] = useMutation(LOGIN);
+    const { setUser } = useAuth();
+    // console.log(auth);
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -40,8 +43,10 @@ export default function LoginForm(props) {
                         input: formData,
                     }
                 });
+                
                 const { token } = data.login;
                 setToken(token);
+                setUser(token);
             } catch(err) {
                 setError(err.message);
             }
