@@ -1,11 +1,12 @@
 import React from 'react';
-
+import Header from '../components/Header/Header';
+ 
 export default function BasicLayout(props) {
     const { children } = props;
-
+ 
     return (
       <>
-        <h1>Menu</h1>
+        <Header />
         <div className="container">
           { children }
         </div>

@@ -6,7 +6,8 @@ import { ToastContainer } from "react-toastify";
 import Auth from "./pages/Auth/index";
 import { getToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
-import Navigation from "./routes/Navigation";
+import AppRouter from './routes/AppRouter';
+// import Navigation from "./routes/Navigation";
 
 import './App.scss';
 
@@ -43,7 +44,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-          { !auth ? <Auth /> : <Navigation /> }
+          { !auth ? <Auth /> : <AppRouter /> }
           <ToastContainer 
             position="top-right"
             autoClose={5000}

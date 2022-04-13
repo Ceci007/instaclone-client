@@ -1,0 +1,33 @@
+.header {
+    height: 7rem;
+    box-shadow: $shadow-dark;
+    width: 100%;
+    border-bottom: 1px solid $bg-light;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: white;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    top: -4rem;
+    height: 7rem;
+    width: 100%;
+}
+
+.header-logo {
+    width: 15rem;
+    height: auto;
+}
+
+.header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

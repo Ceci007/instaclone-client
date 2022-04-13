@@ -6,6 +6,8 @@ export default function User() {
     console.log(username);
 
     return (
-      <div>User</div>
+      <div>
+        <h2>User...</h2>
+      </div>
     )
 }

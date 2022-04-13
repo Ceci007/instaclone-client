@@ -8,7 +8,7 @@ export default function Auth() {
     const [showLogin, setShowLogin] = useState(true);
 
     return (
-        <div className="container">
+        <div className="container flex-column-center">
             <div className="logo-box">
                 <LazyImage src={logo} alt="logo" width="100%" height="auto" />
             </div>
