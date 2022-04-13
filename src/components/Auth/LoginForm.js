@@ -1,18 +1,16 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import { toast } from "react-toastify"; 
 import { useMutation } from "@apollo/client";
 import { LOGIN } from '../../gql/user';
 import { setToken, decodeToken } from "../../utils/token";
 import useAuth from "../../hooks/useAuth";
 
 export default function LoginForm(props) {
-    const { setShowLogin } = props;
     const [error, setError] = useState("");
     const [login] = useMutation(LOGIN);
     const { setUser } = useAuth();
-    // console.log(auth);
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -24,7 +22,7 @@ export default function LoginForm(props) {
 
           setHeightError(heightError);
         }
-      });
+      }, []);
     
     const formik = useFormik({
         initialValues: initialValues(),
@@ -47,7 +45,9 @@ export default function LoginForm(props) {
                 const { token } = data.login;
                 setToken(token);
                 setUser(decodeToken(token));
+                toast.success("User Login successfully!!");
             } catch(err) {
+                toast.error(err.message);
                 setError(err.message);
             }
             setShow(true);

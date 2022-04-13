@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createMemoryHistory } from 'history';
 
 import Home from "../pages/Home";
@@ -11,14 +11,14 @@ export const history = createMemoryHistory();
 
 export default function AppRouter() {
   return (
-    <Router history={history}>
+    <BrowserRouter>
         <BasicLayout>
-            <Switch>
-                <Route path="/" component={Home} exact={true} />
-                <Route path="/:username" component={User} exact={true} />
-                <Route component={Error404} />
-            </Switch>
+            <Routes>
+                <Route path="/" element={<Home />} exact={true} />
+                <Route path="/:username" element={<User />} exact={true} />
+                <Route path="*" element={<Error404 />} />
+            </Routes>
         </BasicLayout>
-    </Router>
+    </BrowserRouter>
   );
 }

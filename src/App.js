@@ -7,9 +7,6 @@ import Auth from "./pages/Auth/index";
 import { getToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
 import AppRouter from './routes/AppRouter';
-// import Navigation from "./routes/Navigation";
-
-import './App.scss';
 
 function App() {
   const [auth, setAuth] = useState(undefined);

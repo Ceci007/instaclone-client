@@ -13,7 +13,7 @@ export default function Auth() {
                 <LazyImage src={logo} alt="logo" width="100%" height="auto" />
             </div>
             <div className='form-container'>
-                { showLogin ? <LoginForm setShowLogin={setShowLogin} /> : <RegisterForm setShowLogin={setShowLogin} /> }
+                { showLogin ? <LoginForm /> : <RegisterForm setShowLogin={setShowLogin} /> }
                 { showLogin ? (
                     <div className="space-between">
                         <p>don't you have an account yet?</p>

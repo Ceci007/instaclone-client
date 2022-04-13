@@ -19,7 +19,7 @@ export default function RegisterForm(props) {
 
           setHeightError(heightError);
         }
-      });
+      }, []);
 
     const formik = useFormik({
         initialValues: initialValues(),
