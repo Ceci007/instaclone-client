@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from "../../assets/png/instaclone.png";
 import { Link } from "react-router-dom"; 
- 
+import RightHeader from './RightHeader'; 
+
 export default function Header() {
   return (
     <div className="header">
@@ -18,9 +19,7 @@ export default function Header() {
                     </h2>
                 </div>
                 <div>
-                    <h2>
-                        OPTIONS...
-                    </h2>
+                    <RightHeader />
                 </div>
             </div>
         </div>

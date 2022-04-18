@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 
 import Auth from "./pages/Auth/index";
-import { getToken } from "./utils/token";
+import { getToken, decodeToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
 import AppRouter from './routes/AppRouter';
 
@@ -17,7 +17,7 @@ function App() {
     if(!token) {
       setAuth(null);
     } else {
-      setAuth(token);
+      setAuth(decodeToken(token));
     }
   }, []);
 
