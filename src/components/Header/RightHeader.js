@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import DefaultAvatar from '../../assets/png/avatar.png';
+import defaultAvatar from '../../assets/png/avatar.png';
+import LazyImage from '../LazyImage/LazyImage';
 
 export default function RightHeader() {
     const { auth } = useAuth();
@@ -19,7 +20,7 @@ export default function RightHeader() {
                 </svg>
             </Link>
             <Link className='avatar-box' to={`/${auth.username}`}>
-                <img src={DefaultAvatar} alt="avatar" />
+                <LazyImage src={defaultAvatar} width="50px" height="50px" alt="avatar" />
             </Link>
         </div>
     )
