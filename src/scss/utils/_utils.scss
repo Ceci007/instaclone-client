@@ -1,3 +1,7 @@
+.flex {
+    display: flex;
+}
+
 .space-between {
     width: 100%;
     display: flex;
@@ -12,4 +16,8 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+}
+
+.font-bold-700 {
+    font-weight: 700;
 }

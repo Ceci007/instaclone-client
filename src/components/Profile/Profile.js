@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../gql/user';
 import { toast } from "react-toastify";
+import UserNotFound from '../UserNotFound/UserNotFound';
 import defaultAvatar from "../../assets/png/avatar.png";
 import LazyImage from '../LazyImage/LazyImage';
 
@@ -12,7 +13,7 @@ export default function Profile(props) {
     });
 
     if(loading) return (<p>loading data...</p>);
-    if(error && !data) return (<div>{ toast.error(error.message, { toastId: "error1"}) }</div>)
+    if(error) return (<UserNotFound />)
     const { getUser } = data;
 
     console.log(getUser);
