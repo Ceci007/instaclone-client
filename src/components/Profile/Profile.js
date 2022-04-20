@@ -1,13 +1,35 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../gql/user';
-import { toast } from "react-toastify";
 import UserNotFound from '../UserNotFound/UserNotFound';
 import defaultAvatar from "../../assets/png/avatar.png";
 import LazyImage from '../LazyImage/LazyImage';
+import Modal from 'react-modal';
+
+const customStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+};
+
+Modal.setAppElement('#root');
 
 export default function Profile(props) {
     const { username } = props;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
     const { data, loading, error } = useQuery(GET_USER, {
         variables: { username }
     });
@@ -16,13 +38,34 @@ export default function Profile(props) {
     if(error) return (<UserNotFound />)
     const { getUser } = data;
 
-    console.log(getUser);
+    function openModal() {
+        setIsOpen(true);
+    }
+    
+    
+    function closeModal() {
+        setIsOpen(false);
+    }
 
     return (
         <>
             <div className='profile-container'>
-                <div className='profile-box profile-left avatar-profile-box'>
-                    <LazyImage width="100px" height="100px" src={defaultAvatar} alt="avatar" />
+                { modalIsOpen && 
+                    <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={closeModal}
+                        className="modal"
+                        style={customStyles}
+                        contentLabel="Example Modal"
+                    >
+                        Hello world!
+                        <button onClick={closeModal}>close</button>
+                    </Modal>
+                }
+                <div className='profile-box profile-left'>
+                    <div className='avatar-profile-box' onClick={openModal}>
+                        <LazyImage width="100px" height="100px" src={defaultAvatar} alt="avatar" />
+                    </div>
                 </div>
                 <div className='profile-box profile-right'>
                     <div className='profile-item profile-item-1'>Header Profile</div>
@@ -30,7 +73,7 @@ export default function Profile(props) {
                     <div className='profile-item profile-item-3'>
                         <p className='profile-name'>{getUser.name}</p>
                         { getUser.website && 
-                            <a href={getUser.website} target="_blank" className="website-link">
+                            <a href={getUser.website} target="_blank" rel="noreferrer" className="website-link">
                                 {getUser.website}
                             </a>
                         }
