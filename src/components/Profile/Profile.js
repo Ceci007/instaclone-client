@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import useAuth from '../../hooks/useAuth';
 import { GET_USER } from '../../gql/user';
 import UserNotFound from '../UserNotFound/UserNotFound';
+import AvatarForm from '../User/AvatarForm/AvatarForm';
 import defaultAvatar from "../../assets/png/avatar.png";
 import LazyImage from '../LazyImage/LazyImage';
 import Modal from 'react-modal';
@@ -29,7 +31,10 @@ Modal.setAppElement('#root');
 
 export default function Profile(props) {
     const { username } = props;
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
+    // const [modalChildren, setModalChildren] = useState(null);
+    const { auth } = useAuth();
     const { data, loading, error } = useQuery(GET_USER, {
         variables: { username }
     });
@@ -38,13 +43,26 @@ export default function Profile(props) {
     if(error) return (<UserNotFound />)
     const { getUser } = data;
 
-    function openModal() {
+    /*
+    const openModal = () => {
         setIsOpen(true);
-    }
+    } */
     
     
-    function closeModal() {
+    const closeModal = () => {
         setIsOpen(false);
+    }
+
+    const modalHandler = (type) => {
+        switch (type) {
+            case "avatar":
+                setModalTitle("Change user picture");
+                //setModalChildren(<AvatarForm modalTitle={modalTitle} />);
+                setIsOpen(true);
+                break;
+            default:
+                break;
+        }
     }
 
     return (
@@ -56,14 +74,15 @@ export default function Profile(props) {
                         onRequestClose={closeModal}
                         className="modal"
                         style={customStyles}
-                        contentLabel="Example Modal"
+                        contentLabel={modalTitle}
                     >
-                        Hello world!
-                        <button onClick={closeModal}>close</button>
+                        <AvatarForm modalTitle={modalTitle} setIsOpen={setIsOpen} />
                     </Modal>
                 }
                 <div className='profile-box profile-left'>
-                    <div className='avatar-profile-box' onClick={openModal}>
+                    <div 
+                        className={ username === auth.username ? 'avatar-profile-box cursor-pointer' : 'avatar-profile-box' } 
+                        onClick={() => username === auth.username && modalHandler("avatar")}>
                         <LazyImage width="100px" height="100px" src={defaultAvatar} alt="avatar" />
                     </div>
                 </div>
