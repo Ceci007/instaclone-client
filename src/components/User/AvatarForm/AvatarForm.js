@@ -12,11 +12,11 @@ export default function AvatarForm(props) {
         const file = fileAccepted[0];
 
         try {
-            const result = await updateAvatar({ variables: { file } });
             console.log(file);
+            const result = await updateAvatar({ variables: { file } });
             console.log(result); 
         } catch (err) {
-            console.log(err);
+            console.log(err); 
         }
     }, [updateAvatar]);
 
