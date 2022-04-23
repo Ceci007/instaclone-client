@@ -48,17 +48,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-          { /* !auth ? <Auth /> : <AppRouter /> */}
           <Routes>
             {!auth && (
               <>
                  <Route
                   path="/register"
-                  element={<RegisterPage authenticate={auth} />}
+                  element={<RegisterPage />}
                 />
                 <Route
                   path="/login"
-                  element={<LoginPage authenticate={auth} />}
+                  element={<LoginPage />}
                 />
               </>
             )}
@@ -69,7 +68,7 @@ function App() {
                   path="/"
                   element={
                     <BasicLayout>
-                      <HomePage logout={auth} />
+                      <HomePage />
                     </BasicLayout>
                   }
                 />

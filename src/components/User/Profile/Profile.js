@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import useAuth from '../../hooks/useAuth';
-import { GET_USER } from '../../gql/user';
-import UserNotFound from '../UserNotFound/UserNotFound';
-import AvatarForm from '../User/AvatarForm/AvatarForm';
-import defaultAvatar from "../../assets/png/avatar.png";
-import LazyImage from '../LazyImage/LazyImage';
+import useAuth from '../../../hooks/useAuth';
+import { GET_USER } from '../../../gql/user';
+import UserNotFound from '../../UserNotFound/UserNotFound';
+import AvatarForm from '../AvatarForm/AvatarForm';
+import defaultAvatar from "../../../assets/png/avatar.png";
+import LazyImage from '../../LazyImage/LazyImage';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -39,7 +39,7 @@ export default function Profile(props) {
         variables: { username }
     });
 
-    if(loading) return (<p>loading data...</p>);
+    if(loading) return (<div className='profile-spinner-box'><span className='big-spinner spinner-primary' /></div>);
     if(error) return (<UserNotFound />)
     const { getUser } = data;
 

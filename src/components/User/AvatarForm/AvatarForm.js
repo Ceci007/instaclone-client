@@ -1,10 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useDropzone } from 'react-dropzone';
 import { useMutation } from '@apollo/client';
 import { UPDATE_AVATAR } from '../../../gql/user';
 
 export default function AvatarForm(props) {
     const { modalTitle, setIsOpen } = props;
+    const [loading, setLoading] = useState(false);
 
     const [updateAvatar] = useMutation(UPDATE_AVATAR); 
 
@@ -12,13 +14,21 @@ export default function AvatarForm(props) {
         const file = fileAccepted[0];
 
         try {
-            console.log(file);
+            setLoading(true);
             const result = await updateAvatar({ variables: { file } });
-            console.log(result); 
+            const { data } = result;
+            
+            if(!data.updateAvatar.status) {
+                setLoading(false);
+                toast.warning("Avatar could not be updated");
+            } else {
+                setLoading(false);
+                setIsOpen(false); 
+            }
         } catch (err) {
             console.log(err); 
         }
-    }, [updateAvatar]);
+    }, [updateAvatar, setIsOpen]);
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: "image/jpeg, image/jpg, image/png",
@@ -33,11 +43,13 @@ export default function AvatarForm(props) {
             <h2 className='avatar-form-title'>{`${modalTitle}`}</h2>
             <div className='avatar-buttons'>
                 <div className='avatar-button button-1' {...getRootProps()}>
-                    <div className='icon-avatar'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                    </div>
+                    { loading ? <div className='avatar-spinner-box'><span className='small-spinner spinner-white' /></div> :
+                        <div className='icon-avatar'>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                        </div>
+                    }
                 </div>
                 <div className='avatar-button button-2'>
                     <div className='icon-avatar'>
