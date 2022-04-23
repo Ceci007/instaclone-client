@@ -1,13 +1,14 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "../../gql/user";
 
-export default function RegisterForm(props) {
-    const { setShowLogin } = props;
+export default function RegisterForm() {
     const [register] = useMutation(REGISTER);
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -52,7 +53,7 @@ export default function RegisterForm(props) {
                     }
                 });
                 toast.success("User register successfully!!");
-                setShowLogin(true);
+                navigate("/login");
             } catch(err) {
                 toast.error(err.message);
             }

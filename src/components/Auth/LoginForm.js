@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify"; 
@@ -11,6 +12,7 @@ export default function LoginForm(props) {
     const [error, setError] = useState("");
     const [login] = useMutation(LOGIN);
     const { setUser } = useAuth();
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -45,6 +47,8 @@ export default function LoginForm(props) {
                 const { token } = data.login;
                 setToken(token);
                 setUser(decodeToken(token));
+                const { username } = decodeToken(token);
+                navigate(`/${username}`);
                 toast.success("User Login successfully!!");
             } catch(err) {
                 toast.error(err.message);
@@ -55,7 +59,7 @@ export default function LoginForm(props) {
     });
   
     return (
-        <>
+        <> 
             <h2 className="login-form-title">Login to see awesome pictures and videos from your friends and followers</h2>
             <form 
                 className="form" 

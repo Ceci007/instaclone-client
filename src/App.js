@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Route, Routes, Navigate } from "react-router-dom";
 import client from "./config/apollo";
 import { ApolloProvider } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 
-import Auth from "./pages/Auth/index";
 import { getToken, decodeToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
-import AppRouter from './routes/AppRouter';
+
+import RegisterPage from './pages/Auth/RegisterPage';
+import LoginPage from './pages/Auth/LoginPage';
+import HomePage from './pages/Home/HomePage';
+import UserPage from './pages/UserPage';
+import BasicLayout from './layouts/BasicLayout';
 
 function App() {
   const [auth, setAuth] = useState(undefined);
@@ -43,7 +48,41 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-          { !auth ? <Auth /> : <AppRouter /> }
+          { /* !auth ? <Auth /> : <AppRouter /> */}
+          <Routes>
+            {!auth && (
+              <>
+                 <Route
+                  path="/register"
+                  element={<RegisterPage authenticate={auth} />}
+                />
+                <Route
+                  path="/login"
+                  element={<LoginPage authenticate={auth} />}
+                />
+              </>
+            )}
+
+            {auth && (
+              <>
+                <Route
+                  path="/"
+                  element={
+                    <BasicLayout>
+                      <HomePage logout={auth} />
+                    </BasicLayout>
+                  }
+                />
+                <Route path="/:username" element={
+                  <BasicLayout>
+                    <UserPage />
+                  </BasicLayout>
+                  } 
+                />
+              </>
+            )}
+            <Route path="*" element={<Navigate to={auth ? "/" : "/login"} />} />
+          </Routes>
           <ToastContainer 
             position="top-right"
             autoClose={5000}
