@@ -1,11 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_USER } from '../../gql/user';
 import useAuth from '../../hooks/useAuth';
 import defaultAvatar from '../../assets/png/avatar.png';
 import LazyImage from '../LazyImage/LazyImage';
 
 export default function RightHeader() {
     const { auth } = useAuth();
+
+    const { data, loading, error } = useQuery(GET_USER, {
+        variables: { username: auth.username }
+    });
+
+    if(loading || error) return null;
+    const { getUser } = data;
 
     return (
         <div className='right-header'>
@@ -20,7 +29,7 @@ export default function RightHeader() {
                 </svg>
             </Link>
             <Link className='avatar-box' to={`/${auth.username}`}>
-                <LazyImage src={defaultAvatar} width="50px" height="50px" alt="avatar" />
+                <LazyImage src={getUser.avatar ? getUser.avatar : defaultAvatar} width="50px" height="50px" alt="avatar" />
             </Link>
         </div>
     )

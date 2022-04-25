@@ -57,7 +57,6 @@ export default function Profile(props) {
         switch (type) {
             case "avatar":
                 setModalTitle("Change user picture");
-                //setModalChildren(<AvatarForm modalTitle={modalTitle} />);
                 setIsOpen(true);
                 break;
             default:
@@ -76,14 +75,23 @@ export default function Profile(props) {
                         style={customStyles}
                         contentLabel={modalTitle}
                     >
-                        <AvatarForm modalTitle={modalTitle} setIsOpen={setIsOpen} />
+                        <AvatarForm 
+                            modalTitle={modalTitle} 
+                            setIsOpen={setIsOpen} 
+                            auth={auth}
+                        />
                     </Modal>
                 }
                 <div className='profile-box profile-left'>
                     <div 
                         className={ username === auth.username ? 'avatar-profile-box cursor-pointer' : 'avatar-profile-box' } 
                         onClick={() => username === auth.username && modalHandler("avatar")}>
-                        <LazyImage width="100px" height="100px" src={defaultAvatar} alt="avatar" />
+                        <LazyImage 
+                            width="100px" 
+                            height="100px" 
+                            src={getUser.avatar ? getUser.avatar : defaultAvatar} 
+                            alt="avatar" 
+                        />
                     </div>
                 </div>
                 <div className='profile-box profile-right'>
