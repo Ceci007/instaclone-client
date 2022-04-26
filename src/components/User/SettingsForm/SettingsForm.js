@@ -1,7 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { useApolloClient } from '@apollo/client';
+import useAuth from '../../../hooks/useAuth';
 
 export default function SettingsForm(props) {
-  const { setIsOpen } = props;  
+  const { setIsOpen } = props; 
+  const { logout } = useAuth(); 
+  const clientLogout = useApolloClient();
+
+  const onLogout = () => {
+      logout();
+      clientLogout.clearStore();
+  }
 
   return (
     <div className='setting-form'>
@@ -37,7 +46,7 @@ export default function SettingsForm(props) {
             </div>
             Change Website
         </button>
-        <button className='btn-basic btn-grey btn-full'>
+        <button className='btn-basic btn-grey btn-full' onClick={onLogout}>
             <div className='btn-icon'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />

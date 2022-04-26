@@ -8,6 +8,12 @@
     background: linear-gradient(to right bottom, $bg-light, white);
     border-radius: 1.5rem;
     box-shadow: $shadow-dark;
+
+    @media only screen and (max-width: $bp-smallest) {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
 }
 
 .profile-box {
@@ -29,6 +35,16 @@
 .profile-left {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+
+    @media only screen and (max-width: $bp-smallest) {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-top: -6rem;
+    }
 }
 
 .avatar-profile-box img {
@@ -44,6 +60,12 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-template-rows: repeat(1, 1fr);
     gap: 2rem;
+
+    @media only screen and (max-width: $bp-smallest) {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        margin-top: -5rem;
+    }
 }
 
 .profile-item {
@@ -51,6 +73,10 @@
     padding: 1.5rem;
     border-radius: 1.5rem;
     box-shadow: $shadow-dark;
+
+    @media only screen and (max-width: $bp-smallest) {
+        width: 100%;
+    }
 }
 
 .website-link {

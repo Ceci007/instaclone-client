@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Route, Routes, Navigate } from "react-router-dom";
-import client from "./config/apollo";
+import client from './config/apollo';
 import { ApolloProvider } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
 
-import { getToken, decodeToken } from "./utils/token";
+import { getToken, decodeToken, removeToken } from "./utils/token";
 import AuthContext from './context/AuthContext';
 
 import RegisterPage from './pages/Auth/RegisterPage';
@@ -26,9 +26,10 @@ function App() {
     }
   }, []);
 
-  const logout = () => {
-    console.log("Logged out");
-  }
+  const logout = useCallback(() => {
+    removeToken();
+    setAuth(null); 
+  }, []);
 
   const setUser = (user) => {
     setAuth(user);
@@ -40,7 +41,7 @@ function App() {
       logout,
       setUser
     }), 
-    [auth]
+    [auth, logout]
   );
 
   if(auth === undefined) return null;
