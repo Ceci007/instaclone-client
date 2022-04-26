@@ -34,6 +34,7 @@ export default function Profile(props) {
     const { username } = props;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
+    const [modalChildren, setModalChildren] = useState(null);
     const { auth } = useAuth();
     const { data, loading, error } = useQuery(GET_USER, {
         variables: { username }
@@ -57,6 +58,12 @@ export default function Profile(props) {
         switch (type) {
             case "avatar":
                 setModalTitle("Change user picture");
+                setModalChildren(<AvatarForm modalTitle={modalTitle} setIsOpen={setIsOpen} auth={auth} />);
+                setIsOpen(true);
+                break;
+            case "settings":
+                setModalTitle("Profile Settings");
+                setModalChildren(<div>lorem ipsum...</div>);
                 setIsOpen(true);
                 break;
             default:
@@ -75,11 +82,8 @@ export default function Profile(props) {
                         style={customStyles}
                         contentLabel={modalTitle}
                     >
-                        <AvatarForm 
-                            modalTitle={modalTitle} 
-                            setIsOpen={setIsOpen} 
-                            auth={auth}
-                        />
+                        <h3 className='modal-title'>{ modalTitle }</h3>
+                        { modalChildren }
                     </Modal>
                 }
                 <div className='profile-box profile-left'>
@@ -96,7 +100,11 @@ export default function Profile(props) {
                 </div>
                 <div className='profile-box profile-right'>
                     <div className='profile-item profile-item-1'>
-                        <HeaderProfile getUser={getUser} auth={auth} />
+                        <HeaderProfile 
+                            getUser={getUser} 
+                            auth={auth} 
+                            modalHandler={modalHandler}
+                        />
                     </div>
                     <div className='profile-item profile-item-2'>Followers</div>
                     <div className='profile-item profile-item-3'>

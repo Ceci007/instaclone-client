@@ -5,8 +5,9 @@
     grid-template-rows: repeat(1, min-content);
     padding: 2rem;
     column-gap: 2rem;
-    background-color: $bg-light-grey;
-    border-radius: 0.4rem;
+    background: linear-gradient(to right bottom, $bg-light, white);
+    border-radius: 1.5rem;
+    box-shadow: $shadow-dark;
 }
 
 .profile-box {
@@ -46,9 +47,10 @@
 }
 
 .profile-item {
-    background-color: $bg-light;
+    background-color: white;
     padding: 1.5rem;
-    border-radius: 0.4rem;
+    border-radius: 1.5rem;
+    box-shadow: $shadow-dark;
 }
 
 .website-link {
