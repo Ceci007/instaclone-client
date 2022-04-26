@@ -7,6 +7,7 @@ import AvatarForm from '../AvatarForm/AvatarForm';
 import defaultAvatar from "../../../assets/png/avatar.png";
 import LazyImage from '../../LazyImage/LazyImage';
 import Modal from 'react-modal';
+import HeaderProfile from './HeaderProfile/HeaderProfile';
 
 const customStyles = {
     overlay: {
@@ -33,7 +34,6 @@ export default function Profile(props) {
     const { username } = props;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
-    // const [modalChildren, setModalChildren] = useState(null);
     const { auth } = useAuth();
     const { data, loading, error } = useQuery(GET_USER, {
         variables: { username }
@@ -95,7 +95,9 @@ export default function Profile(props) {
                     </div>
                 </div>
                 <div className='profile-box profile-right'>
-                    <div className='profile-item profile-item-1'>Header Profile</div>
+                    <div className='profile-item profile-item-1'>
+                        <HeaderProfile getUser={getUser} auth={auth} />
+                    </div>
                     <div className='profile-item profile-item-2'>Followers</div>
                     <div className='profile-item profile-item-3'>
                         <p className='profile-name'>{getUser.name}</p>

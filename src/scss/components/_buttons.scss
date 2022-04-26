@@ -4,6 +4,10 @@
     padding: 1rem 3rem;
     box-shadow: $shadow-dark;
     transition: all .3s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-submit {
@@ -17,4 +21,25 @@
 .btn:hover {
     transform: translateY(2px);
     box-shadow: $shadow-light;
+}
+
+.btn-icon {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1rem;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: white;
+    }
+}
+
+.btn-grey {
+    border-radius: 3.5rem;
+    background: linear-gradient(to right bottom, $bg-medium-grey, $bg-dark-grey);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 1.5rem auto;
 }
