@@ -4,6 +4,7 @@ import useAuth from '../../../hooks/useAuth';
 import { GET_USER } from '../../../gql/user';
 import UserNotFound from '../../UserNotFound/UserNotFound';
 import AvatarForm from '../AvatarForm/AvatarForm';
+import SettingsForm from '../SettingsForm/SettingsForm';
 import defaultAvatar from "../../../assets/png/avatar.png";
 import LazyImage from '../../LazyImage/LazyImage';
 import Modal from 'react-modal';
@@ -58,12 +59,12 @@ export default function Profile(props) {
         switch (type) {
             case "avatar":
                 setModalTitle("Change user picture");
-                setModalChildren(<AvatarForm modalTitle={modalTitle} setIsOpen={setIsOpen} auth={auth} />);
+                setModalChildren(<AvatarForm setIsOpen={setIsOpen} auth={auth} />);
                 setIsOpen(true);
                 break;
             case "settings":
                 setModalTitle("Profile Settings");
-                setModalChildren(<div>lorem ipsum...</div>);
+                setModalChildren(<SettingsForm setIsOpen={setIsOpen} />);
                 setIsOpen(true);
                 break;
             default:
@@ -80,7 +81,6 @@ export default function Profile(props) {
                         onRequestClose={closeModal}
                         className="modal"
                         style={customStyles}
-                        contentLabel={modalTitle}
                     >
                         <h3 className='modal-title'>{ modalTitle }</h3>
                         { modalChildren }

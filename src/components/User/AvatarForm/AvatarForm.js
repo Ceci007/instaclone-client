@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_AVATAR, GET_USER, DELETE_AVATAR } from '../../../gql/user';
 
 export default function AvatarForm(props) {
-    const { modalTitle, setIsOpen, auth } = props;
+    const { setIsOpen, auth } = props;
     const [loading, setLoading] = useState(false);
 
     const [updateAvatar] = useMutation(UPDATE_AVATAR, {
@@ -87,7 +87,6 @@ export default function AvatarForm(props) {
     return (
         <div className='avatar-form'>
             <input {...getInputProps()} />
-            <h2 className='avatar-form-title'>{`${modalTitle}`}</h2>
             <div className='avatar-buttons'>
                 <div className='avatar-button button-1' {...getRootProps()}>
                     { loading ? <div className='avatar-spinner-box'><span className='small-spinner spinner-white' /></div> :
