@@ -1,7 +1,7 @@
 .btn {
     border: none;
     width: 16rem;
-    padding: 1rem 3rem;
+    padding: 1.5rem 3rem;
     box-shadow: $shadow-dark;
     transition: all .3s ease-in-out;
     cursor: pointer;
@@ -12,7 +12,7 @@
 
 .btn-basic {
     border: none;
-    padding: 1rem 3rem;
+    padding: 1.5rem 3rem;
     box-shadow: $shadow-dark;
     transition: all .3s ease-in-out;
     cursor: pointer;
@@ -25,6 +25,8 @@
     background: linear-gradient(to left top, $bg-primary, $bg-hover);
     border-radius: .4rem;
     text-transform: uppercase;
+    font-weight: 100;
+    letter-spacing: 0.3rem;
     color: white;
     width: 100%;
 }
