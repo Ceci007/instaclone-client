@@ -56,8 +56,8 @@ export default function RegisterForm() {
                 navigate("/login");
             } catch(err) {
                 toast.error(err.message);
+                setShow(true);
             }
-            setShow(true);
         }
     });
 

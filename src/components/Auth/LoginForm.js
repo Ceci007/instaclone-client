@@ -53,8 +53,8 @@ export default function LoginForm(props) {
             } catch(err) {
                 toast.error(err.message);
                 setError(err.message);
+                setShow(true);
             }
-            setShow(true);
         }
     });
   
