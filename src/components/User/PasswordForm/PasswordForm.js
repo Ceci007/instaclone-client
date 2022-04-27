@@ -1,8 +1,14 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER } from '../../../gql/user';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
-export default function PasswordForm() {
+export default function PasswordForm(props) {
+    const { logout, setIsOpen } = props;
+    const [updateUser] = useMutation(UPDATE_USER);
+
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
     const refError = useRef();
@@ -24,11 +30,26 @@ export default function PasswordForm() {
             confirmNewPassword: Yup.string().required("This field is required")
             .oneOf([Yup.ref("newPassword")], "Passwords don't match"),
         }), 
-        onSubmit: (formData) => {
+        onSubmit: async (formData) => {
             try {
-                console.log(formData);
+                const result = await updateUser({
+                    variables: {
+                        input: {
+                            currentPassword: formData.currentPassword,
+                            newPassword: formData.newPassword
+                        }
+                    }
+                });
+
+                if(!result.data.updateUser) {
+                    toast.error("Incorrect current password"); 
+                } else {
+                    toast.success("Password updated successfully!!");
+                    setIsOpen(false);
+                    logout();
+                }
             } catch(err) {
-                console.log(err);
+                console.log(err.message);
                 setShow(true);
             }
         }

@@ -8,14 +8,14 @@ export default function SettingsForm(props) {
   const { logout } = useAuth(); 
   const clientLogout = useApolloClient();
 
-  const onChangePassword = () => {
-      setModalTitle("Password Settings");
-      setModalChildren(<PasswordForm />);
-  }
-
   const onLogout = () => {
       logout();
       clientLogout.clearStore();
+  }
+
+  const onChangePassword = () => {
+      setModalTitle("Password Settings");
+      setModalChildren(<PasswordForm setIsOpen={setIsOpen} logout={onLogout} />);
   }
 
   return (
