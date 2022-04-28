@@ -37,7 +37,7 @@ export default function Profile(props) {
     const [modalTitle, setModalTitle] = useState("");
     const [modalChildren, setModalChildren] = useState(null);
     const { auth } = useAuth();
-    const { data, loading, error } = useQuery(GET_USER, {
+    const { data, loading, error, refetch } = useQuery(GET_USER, {
         variables: { username }
     });
 
@@ -64,7 +64,7 @@ export default function Profile(props) {
                 break;
             case "settings":
                 setModalTitle("Profile Settings");
-                setModalChildren(<SettingsForm setIsOpen={setIsOpen} setModalTitle={setModalTitle} setModalChildren={setModalChildren} getUser={getUser} />);
+                setModalChildren(<SettingsForm setIsOpen={setIsOpen} setModalTitle={setModalTitle} setModalChildren={setModalChildren} getUser={getUser} refetch={refetch} />);
                 setIsOpen(true);
                 break;
             default:

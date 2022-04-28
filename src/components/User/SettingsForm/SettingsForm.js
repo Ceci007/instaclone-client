@@ -5,7 +5,7 @@ import PasswordForm from '../PasswordForm/PasswordForm';
 import EmailForm from '../EmailForm/EmailForm';
 
 export default function SettingsForm(props) {
-  const { setIsOpen, setModalTitle, setModalChildren, getUser } = props; 
+  const { setIsOpen, setModalTitle, setModalChildren, getUser, refetch } = props; 
   const { logout } = useAuth(); 
   const clientLogout = useApolloClient();
 
@@ -21,7 +21,7 @@ export default function SettingsForm(props) {
 
   const onChangeEmail = () => {
       setModalTitle("Email Settings");
-      setModalChildren(<EmailForm setIsOpen={setIsOpen} currentEmail={getUser.email} />)
+      setModalChildren(<EmailForm setIsOpen={setIsOpen} currentEmail={getUser.email} refetch={refetch} />)
   }
 
   return (

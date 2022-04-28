@@ -1,12 +1,13 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-// import { useMutation } from '@apollo/client';
-// import { UPDATE_USER } from '../../../gql/user';
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER } from '../../../gql/user';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export default function EmailForm(props) {
-    const { setIsOpen, currentEmail } = props;
+    const { setIsOpen, currentEmail, refetch } = props;
+    const [updateUser] = useMutation(UPDATE_USER);
 
     const [show, setShow] = useState(false)
     const [heightError, setHeightError] = useState(0);
@@ -27,8 +28,21 @@ export default function EmailForm(props) {
         validationSchema: Yup.object({
             email: Yup.string().email().required("This field is required"),
         }),
-        onSubmit: (formData) => {
-            console.log(formData);
+        onSubmit: async (formData) => {
+            try {
+                await updateUser({
+                    variables: {
+                        input: formData,
+                    }
+                });
+
+                refetch();
+                setIsOpen(false);
+                toast.success("Email updated successfully!!");
+            } catch (err) {
+                toast.error(err.message);
+                setShow(true);
+            }
         }
     });
 
