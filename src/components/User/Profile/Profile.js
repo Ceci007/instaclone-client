@@ -64,7 +64,7 @@ export default function Profile(props) {
                 break;
             case "settings":
                 setModalTitle("Profile Settings");
-                setModalChildren(<SettingsForm setIsOpen={setIsOpen} setModalTitle={setModalTitle} setModalChildren={setModalChildren} />);
+                setModalChildren(<SettingsForm setIsOpen={setIsOpen} setModalTitle={setModalTitle} setModalChildren={setModalChildren} getUser={getUser} />);
                 setIsOpen(true);
                 break;
             default:
