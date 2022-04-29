@@ -3,6 +3,8 @@ import { useApolloClient } from '@apollo/client';
 import useAuth from '../../../hooks/useAuth';
 import PasswordForm from '../PasswordForm/PasswordForm';
 import EmailForm from '../EmailForm/EmailForm';
+import DescriptionForm from '../DescriptionForm/DescriptionForm';
+import WebsiteForm from '../WebsiteForm/WebsiteForm';
 
 export default function SettingsForm(props) {
   const { setIsOpen, setModalTitle, setModalChildren, getUser, refetch } = props; 
@@ -22,6 +24,16 @@ export default function SettingsForm(props) {
   const onChangeEmail = () => {
       setModalTitle("Email Settings");
       setModalChildren(<EmailForm setIsOpen={setIsOpen} currentEmail={getUser.email} refetch={refetch} />)
+  }
+
+  const onChangeDescription = () => {
+      setModalTitle("Bio Settings");
+      setModalChildren(<DescriptionForm setIsOpen={setIsOpen} currentDescription={getUser.description} refetch={refetch} />);
+  }
+
+  const onChangeWebsite = () => {
+      setModalTitle("Website Settings");
+      setModalChildren(<WebsiteForm setIsOpen={setIsOpen} currentWebsite={getUser.website} refetch={refetch} />)
   }
 
   return (
@@ -48,15 +60,15 @@ export default function SettingsForm(props) {
             </div>
             Change Email
         </button>
-        <button className='btn-basic btn-grey btn-full'>
+        <button className='btn-basic btn-grey btn-full' onClick={onChangeDescription}>
             <div className='btn-icon'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
                 </svg>
             </div>
-            Change Description
+            Change Bio
         </button>
-        <button className='btn-basic btn-grey-light btn-full'>
+        <button className='btn-basic btn-grey-light btn-full' onClick={onChangeWebsite}>
             <div className='btn-icon'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />

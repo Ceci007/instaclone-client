@@ -106,16 +106,20 @@ export default function Profile(props) {
                             modalHandler={modalHandler}
                         />
                     </div>
-                    <div className='profile-item profile-item-2'>Followers</div>
+                    <div className='profile-item profile-item-2'>
+                        <p className='profile-name'>
+                            Followers
+                        </p>
+                    </div>
                     <div className='profile-item profile-item-3'>
                         <p className='profile-name'>{getUser.name}</p>
+                        { getUser.description && 
+                            <p className='profile-description'>{getUser.description}</p>
+                        }
                         { getUser.website && 
                             <a href={getUser.website} target="_blank" rel="noreferrer" className="website-link">
                                 {getUser.website}
                             </a>
-                        }
-                        { getUser.description && 
-                            <p className='profile-description'>{getUser.description}</p>
                         }
                     </div>
                 </div>
